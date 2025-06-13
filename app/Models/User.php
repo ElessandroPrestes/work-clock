@@ -51,7 +51,18 @@ class User extends Authenticatable
         ];
     }
 
-       /**
+    /**
+     * Hash password
+     */
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            $user->password = bcrypt($user->password);
+        });
+    }
+
+
+    /**
      * Relationships
      */
     public function registrosDePonto()
