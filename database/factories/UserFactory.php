@@ -25,9 +25,14 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'cpf' => $this->faker->unique()->numerify('###########'),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'cargo' => $this->faker->randomElement(['Administrador', 'Gestor', 'Funcionário']),
+            'data_nascimento' => $this->faker->date(),
+            'cep' => $this->faker->postcode(),
+            'gestor_id' => null, 
             'remember_token' => Str::random(10),
         ];
     }
