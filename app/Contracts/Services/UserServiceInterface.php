@@ -11,4 +11,5 @@ interface UserServiceInterface
     public function atualizar(User $user, array $data): bool;
     public function deletar(User $user): bool;
     public function listar(): Collection;
+    public function getById(int $id): User;
 }

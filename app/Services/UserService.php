@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Contracts\Services\UserServiceInterface;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class UserService implements UserServiceInterface
 {
@@ -27,8 +28,14 @@ class UserService implements UserServiceInterface
         return $this->repository->delete($user);
     }
 
-    public function listar(): \Illuminate\Support\Collection
+    public function listar(): Collection
     {
         return $this->repository->all();
     }
+
+    public function getById(int $id): User
+{
+    return $this->repository->getById($id);
+}
+
 }
