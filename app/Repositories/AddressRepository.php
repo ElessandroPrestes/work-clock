@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories;
 
 use App\Contracts\Repositories\AddressRepositoryInterface;
 use App\Models\Address;

@@ -9,4 +9,5 @@ interface ClockRecordServiceInterface
 {
     public function registrar(int $userId): ClockRecord;
     public function registrosDoUsuario(int $userId): Collection;
+    public function gerarRelatorio(string $start, string $end): array;
 }

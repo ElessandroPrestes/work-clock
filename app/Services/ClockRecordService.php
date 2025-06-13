@@ -5,21 +5,28 @@ namespace App\Services;
 use App\Contracts\Repositories\ClockRecordRepositoryInterface;
 use App\Contracts\Services\ClockRecordServiceInterface;
 use App\Models\ClockRecord;
+use Illuminate\Support\Collection;
 
 class ClockRecordService implements ClockRecordServiceInterface
 {
     public function __construct(
-        private ClockRecordRepositoryInterface $repository
+        private ClockRecordRepositoryInterface $clockRecordRepository
     ) {}
 
     public function registrar(int $userId): ClockRecord
     {
-        return $this->repository->registrar($userId);
+        return $this->clockRecordRepository->registrar($userId);
     }
 
-    public function registrosDoUsuario(int $userId): \Illuminate\Support\Collection
+    public function registrosDoUsuario(int $userId): Collection
     {
-        return $this->repository->listarPorUsuario($userId);
+        return $this->clockRecordRepository->listarPorUsuario($userId);
     }
+
+    public function gerarRelatorio(string $start, string $end): array
+    {
+        return $this->clockRecordRepository->obterRelatorio($start, $end);
+    }
+
 }
 
