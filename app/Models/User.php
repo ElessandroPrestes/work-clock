@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'cargo',
+        'data_nascimento',
+        'cep',
+        'gestor_id',
     ];
 
     /**
@@ -31,6 +35,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'data_nascimento' => 'date',
     ];
 
     /**
@@ -44,5 +49,28 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+       /**
+     * Relationships
+     */
+    public function registrosDePonto()
+    {
+        return $this->hasMany(ClockRecord::class);
+    }
+
+    public function endereco()
+    {
+        return $this->hasOne(Address::class);
+    }
+
+    public function gestor()
+    {
+        return $this->belongsTo(User::class, 'gestor_id');
+    }
+
+    public function subordinados()
+    {
+        return $this->hasMany(User::class, 'gestor_id');
     }
 }
