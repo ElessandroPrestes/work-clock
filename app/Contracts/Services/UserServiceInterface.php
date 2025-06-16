@@ -7,9 +7,10 @@ use Illuminate\Support\Collection;
 
 interface UserServiceInterface
 {
-    public function cadastrar(array $data): User;
-    public function atualizar(User $user, array $data): bool;
-    public function deletar(User $user): bool;
-    public function listar(): Collection;
-    public function getById(int $id): User;
+    public function create(array $data, ?int $managerId = null): User;
+    public function update(User $user, array $data): bool;
+    public function delete(User $user): bool;
+    public function getAll(): Collection;
+    public function getById(int $id): ?User;
+    public function getSubordinates(int $managerId): Collection;
 }

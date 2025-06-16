@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -21,18 +22,24 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = User::class;
+
     public function definition(): array
     {
+        $role = $this->faker->randomElement(['admin', 'employee']);
+
         return [
-            'name' => fake()->name(),
+            'name' => $this->faker->name(),
             'cpf' => $this->faker->unique()->numerify('###########'),
-            'email' => fake()->unique()->safeEmail(),
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'cargo' => $this->faker->randomElement(['Administrador', 'Gestor', 'Funcionário']),
-            'data_nascimento' => $this->faker->date(),
-            'cep' => $this->faker->postcode(),
-            'gestor_id' => null, 
+            'password' => bcrypt('12345678'), 
+            'role' => $role,
+            'position' => $role === 'admin' ? 'Gestor' : 'Funcionário',
+            'birthdate' => $this->faker->date('Y-m-d', '-20 years'),
+            'zip_code' => $this->faker->postcode(),
+            'manager_id' => null, 
             'remember_token' => Str::random(10),
         ];
     }

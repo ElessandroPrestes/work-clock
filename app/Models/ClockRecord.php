@@ -9,10 +9,14 @@ class ClockRecord extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'recorded_at'];
 
-    public function funcionario()
+    protected $casts = [
+        'recorded_at' => 'datetime',
+    ];
+
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

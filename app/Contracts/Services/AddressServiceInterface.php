@@ -6,6 +6,6 @@ use App\Models\Address;
 
 interface AddressServiceInterface
 {
-    public function buscarEnderecoViaCep(string $cep): array;
-    public function salvarEndereco(int $userId, string $cep): Address;
+    public function findAddressByZip(string $zipCode): array;
+    public function saveAddress(int $userId, string $zipCode): Address;
 }

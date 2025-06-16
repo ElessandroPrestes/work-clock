@@ -8,6 +8,17 @@ use Illuminate\Support\Collection;
 
 class UserRepository implements UserRepositoryInterface
 {
+
+    public function allEmployees(): Collection
+    {
+        return User::where('role', 'employee')->get();
+    }
+
+    public function allByManager(int $managerId): Collection
+    {
+        return User::where('role', 'employee')->where('manager_id', $managerId)->get();
+    }
+
     public function create(array $data): User
     {
         return User::create($data);
@@ -15,7 +26,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function getById(int $id): ?User
     {
-        return User::find($id);
+        return User::with('address')->find($id);
     }
 
     public function findByEmail(string $email): ?User
@@ -37,4 +48,5 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::all();
     }
+
 }

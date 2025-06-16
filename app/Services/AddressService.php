@@ -13,7 +13,7 @@ class AddressService implements AddressServiceInterface
         private AddressRepositoryInterface $repository
     ) {}
 
-    public function buscarEnderecoViaCep(string $cep): array
+    public function findAddressByZip(string $cep): array
     {
         $response = Http::get("https://viacep.com.br/ws/{$cep}/json/");
 
@@ -22,16 +22,16 @@ class AddressService implements AddressServiceInterface
         }
 
         return [
-            'rua' => $response['logradouro'] ?? '',
-            'bairro' => $response['bairro'] ?? '',
-            'cidade' => $response['localidade'] ?? '',
-            'estado' => $response['uf'] ?? '',
+            'street' => $response['logradouro'] ?? '',
+            'neighborhood' => $response['bairro'] ?? '',
+            'city' => $response['localidade'] ?? '',
+            'state' => $response['uf'] ?? '',
         ];
     }
 
-    public function salvarEndereco(int $userId, string $cep): Address
+    public function saveAddress(int $userId, string $zipCode): Address
     {
-        $endereco = $this->buscarEnderecoViaCep($cep);
-        return $this->repository->salvar($userId, $endereco);
+        $address = $this->findAddressByZip($zipCode);
+        return $this->repository->save($userId, $address);
     }
 }

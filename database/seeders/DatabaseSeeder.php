@@ -3,20 +3,32 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ClockRecord;
+use App\Models\Address;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        $this->call([
-            UserSeeder::class,
-            ClockRecordSeeder::class,
-            AddressSeeder::class, 
+        // Criar 3 gestores (admins)
+        $managers = User::factory()->count(3)->create([
+            'role' => 'admin',
+            'position' => 'Gestor',
         ]);
+
+        // Criar funcionários para cada gestor
+        $managers->each(function ($manager) {
+            User::factory()
+                ->count(3)
+                ->state([
+                    'role' => 'employee',
+                    'position' => 'Funcionário',
+                    'manager_id' => $manager->id,
+                ])
+                ->has(Address::factory())
+                ->has(ClockRecord::factory()->count(5), 'timeRecords') 
+                ->create();
+        });
     }
 }

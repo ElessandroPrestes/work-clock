@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 interface ClockRecordRepositoryInterface
 {
-    public function registrar(int $userId): ClockRecord;
-    public function listarPorUsuario(int $userId): Collection;
-    public function obterRelatorio(string $start, string $end): array;
+    public function register(int $userId): ClockRecord;
+    public function listByUser(int $userId): Collection;
+    public function getReport(string $start, string $end): array;
 }

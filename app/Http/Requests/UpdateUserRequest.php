@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Rules\CpfRule;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,15 +16,25 @@ class StoreUserRequest extends FormRequest
 
     public function rules(): array
     {
+        $userId = $this->route('user'); 
+
         return [
             'name' => ['required', 'string', 'max:255'],
-            'cpf' => ['required', 'unique:users,cpf', new CpfRule],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8'],
+            'cpf' => [
+                'required',
+                Rule::unique('users', 'cpf')->ignore($userId),
+                new CpfRule,
+            ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($userId),
+            ],
+            'password' => ['nullable', 'string', 'min:8'],
             'role' => ['required', Rule::in(['admin', 'employee'])],
             'position' => ['required', 'string', 'max:100'],
             'birthdate' => ['required', 'date', 'before:today'],
-           'zip_code' => ['required', 'string', new BrazilianZipCode()],
+            'zip_code' => ['required', 'string', new BrazilianZipCode()],
             'manager_id' => ['nullable', 'exists:users,id'],
         ];
     }
