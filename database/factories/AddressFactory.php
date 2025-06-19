@@ -18,6 +18,7 @@ class AddressFactory extends Factory
             'neighborhood' => $this->faker->streetSuffix(),
             'city' => $this->faker->city(),
             'state' => $this->faker->stateAbbr(),
+            'zip_code' => $this->faker->postcode(),
         ];
     }
 }

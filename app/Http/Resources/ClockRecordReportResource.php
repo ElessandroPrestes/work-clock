@@ -15,12 +15,12 @@ class ClockRecordReportResource extends JsonResource
    public function toArray(Request $request): array
     {
         return [
-            'registro_id' => $this->registro_id,
+            'registro_id' => (int) $this->registro_id,
             'funcionario' => $this->funcionario,
             'cargo' => $this->position,
             'idade' => (int) $this->idade,
             'gestor' => $this->gestor ?? 'N/A',
-            'data_hora' => date('Y-m-d H:i:s', strtotime($this->data_hora)),
+            'data_hora' => \Carbon\Carbon::parse($this->data_hora)->format('Y-m-d H:i:s'),
         ];
     }
 }

@@ -24,7 +24,7 @@ class StoreUserRequest extends FormRequest
             'role' => ['required', Rule::in(['admin', 'employee'])],
             'position' => ['required', 'string', 'max:100'],
             'birthdate' => ['required', 'date', 'before:today'],
-           'zip_code' => ['required', 'string', new BrazilianZipCode()],
+            'zip_code' => ['required', 'string', new BrazilianZipCode()],
             'manager_id' => ['nullable', 'exists:users,id'],
         ];
     }

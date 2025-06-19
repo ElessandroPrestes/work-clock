@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('neighborhood');
             $table->string('city');
             $table->string('state');
+            $table->string('zip_code');
 
             $table->softDeletes();
             $table->timestamps();

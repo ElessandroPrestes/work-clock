@@ -21,25 +21,25 @@ class UserController extends Controller
    
     public function index(): JsonResponse
     {
-        $employees = $this->userService->listSubordinates(auth()->id());
+        $users = $this->userService->listSubordinates(auth()->id());
 
-        return response()->json(UserResource::collection($employees), HttpStatus::OK);
+        return response()->json(UserResource::collection($users), HttpStatus::OK);
     }
 
     
     public function show(int $id): JsonResponse
     {
-        $employee = $this->userService->getById($id);
+        $user = $this->userService->getById($id);
 
-        return response()->json(new UserResource($employee), HttpStatus::OK);
+        return response()->json(new UserResource($user), HttpStatus::OK);
     }
 
    
     public function store(StoreUserRequest $request): JsonResponse
     {
-        $employee = $this->userService->store($request->validated(), auth()->id());
+        $user = $this->userService->store($request->validated(), auth()->id());
 
-        return response()->json(new UserResource($employee), HttpStatus::CREATED);
+        return response()->json(new UserResource($user), HttpStatus::CREATED);
     }
 
     

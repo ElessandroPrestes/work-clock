@@ -12,12 +12,12 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'cpf',
         'email',
         'password',
-        'role', 
+        'role',
         'position',
         'birthdate',
-        'zip_code',
         'manager_id',
     ];
 
@@ -30,7 +30,6 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
             'birthdate' => 'date',
         ];
     }
@@ -38,7 +37,9 @@ class User extends Authenticatable
     protected static function booted()
     {
         static::creating(function ($user) {
-            $user->password = bcrypt($user->password);
+            if (!\Illuminate\Support\Str::startsWith($user->password, '$2y$')) {
+                $user->password = bcrypt($user->password);
+            }
         });
     }
 

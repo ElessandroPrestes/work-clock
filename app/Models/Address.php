@@ -15,6 +15,7 @@ class Address extends Model
         'neighborhood',
         'city',
         'state',
+        'zip_code'
     ];
 
     public function user()

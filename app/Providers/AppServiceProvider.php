@@ -32,11 +32,11 @@ class AppServiceProvider extends ServiceProvider
             AddressServiceInterface::class => AddressService::class,
             UserServiceInterface::class => UserService::class,
             ClockRecordServiceInterface::class => ClockRecordService::class,
-            EmployeeServiceInterface::class => EmployeeService::class,
+            UserRepositoryInterface::class => UserRepository::class,
             AddressRepositoryInterface::class => AddressRepository::class,
             UserRepositoryInterface::class => UserRepository::class,
             ClockRecordRepositoryInterface::class => ClockRecordRepository::class,
-            EmployeeRepositoryInterface::class => EmployeeRepository::class,
+            UserServiceInterface::class => UserService::class,
         ];
 
         foreach ($bindings as $interface => $implementation) {
